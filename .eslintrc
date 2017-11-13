@@ -1,0 +1,22 @@
+{
+  "plugins": ["node"],
+    "extends": ["eslint:recommended", "plugin:node/recommended"],
+    "env": {
+      "es6": true,
+      "node": true
+      },
+    "rules": {
+        "node/exports-style": ["error", "module.exports"],
+        "space-infix-ops": ["error", {"int32Hint": true}],
+        "indent": [2, 4],
+        "linebreak-style": [2, "unix"],
+        "quotes": [2, "single"],
+        "semi": [2, "always"],
+        "brace-style": [2, "1tbs"],
+        "array-bracket-spacing": [2, "never"],
+        "camelcase": [2, {"properties": "always"}],
+        "keyword-spacing": [2],
+        "eol-last": [2],
+        "no-trailing-spaces": [2]
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "climbook",
+  "version": "1.0.0",
+  "description": "Libreta de encadenes y proyectos de escalada",
+  "main": "server.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Ever baron",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jwt-simple": "^0.5.1",
+    "moment": "^2.19.1",
+    "mongoose": "^4.12.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-node": "^5.2.1"
+  }
+}
