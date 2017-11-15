@@ -6,19 +6,29 @@ var moment = require('moment');
 //var Route = require('./route');
 
 var ClimberSchema = Schema( {
-    mail: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        require: true
+    local: {
+        email: {
+            type: String,
+            unique: true,
+            lowercase: true,
+            require: true
+        },
+        name: {
+            type: String,
+            require: true
+        },
+        password:{
+            type: String,
+            require: true,
+            select: false
+        }
     },
-    name: {
-        type: String,
-        require: true
-    },
-    password:{
-        type: String,
-        require: true
+    facebook: {
+        id: String,
+        token: String,
+        email: String,
+        name: String,
+        photo:[]
     },
     sigupDate: {
         type : Date,
@@ -27,27 +37,18 @@ var ClimberSchema = Schema( {
     lastLogin: Date
 });
 
-ClimberSchema.pre('save', function(next){
-    var climber = this;
-    if (!climber.isModified('password')) return next();
-    bcrypt.genSalt(10, function(err, salt){
-        if (err) return next(err);
-        bcrypt.hash(climber.password, salt, null, function(err, hash){
-            if (err) return next(err);
-            climber.password = hash;
-            next();
-        });
-    });
-});
-
 // checking if password is valid
-
 ClimberSchema.methods.verifyPassword = function(password, climber, cb) {
     //var climber = this;
-    bcrypt.compare(password, climber.password, function(err, isMatch) {
+    bcrypt.compare(password, climber.local.password, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
+};
+
+// hashPassword
+ClimberSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
 module.exports = mongoose.model('Climber', ClimberSchema);

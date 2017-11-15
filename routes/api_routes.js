@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+
 var ClimbController = require('../controllers/climb');
 var ZoneController = require('../controllers/zone');
 var RouteController = require('../controllers/route');
@@ -29,6 +30,7 @@ api.delete('/zone/:id', ZoneController.deleteZoneById);
 //CLIMBER ENDPOINTS
 api.post('/signup', ClimberController.signUp);
 api.post('/signin', ClimberController.signIn);
+
 
 
 
