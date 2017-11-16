@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /*
 VARS
 */
@@ -10,15 +10,14 @@ var app = require('./app');
 DB & SERVER CONECTION
 */
 mongoose.connect(config.db, {useMongoClient:true}, (error) => {
-  if (error) {
-      throw error;
-  }
-  console.log('Mongo conection stablished...');
-  app.listen(config.host_port, (error) => {
-    if(error){
-      throw error;
+    if (error) {
+        console.log('Mongo:' + error);
     }
+    console.log('Mongo conection stablished...');
+    app.listen(config.host_port, (error) => {
+        if (error){
+          console.log('Mongo:' + error);
+        }
     console.log('Server running...');
-  })
+    });
 });
- 

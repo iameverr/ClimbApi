@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
 //var Route = require('./route');
 
-var ClimberSchema = Schema( {
+var UserSchema = Schema( {
     local: {
         email: {
             type: String,
@@ -38,17 +38,17 @@ var ClimberSchema = Schema( {
 });
 
 // checking if password is valid
-ClimberSchema.methods.verifyPassword = function(password, climber, cb) {
-    //var climber = this;
-    bcrypt.compare(password, climber.local.password, function(err, isMatch) {
+UserSchema.methods.verifyPassword = function(password, user, cb) {
+    //var user = this;
+    bcrypt.compare(password, user.local.password, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
 };
 
 // hashPassword
-ClimberSchema.methods.generateHash = function(password) {
+UserSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
-module.exports = mongoose.model('Climber', ClimberSchema);
+module.exports = mongoose.model('User', UserSchema);

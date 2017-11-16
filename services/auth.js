@@ -1,7 +1,7 @@
 var jwt = require('jwt-simple');
 var config = require('../config.js');
 var moment = require('moment');
-var Climber = require('../models/climber');
+var User = require('../models/user');
 
 function isAuth(req, res, next){
 
@@ -10,25 +10,23 @@ function isAuth(req, res, next){
     }
 
     var token = req.headers.authorization.split(' ')[1];
-    console.log(token, config.secret);
-    var payload = jwt.decode(token, config.secret);
-    console.log(payload);
+    try {
+        var payload = jwt.decode(token, config.secret);
+    } catch (e) {
+        return res.status(401).send({message : 'Unauthorized: Invalid Token' + e});
+    }
     if (payload.exp < moment().unix()) {
         return res.status(401).send({message : 'Unauthorized: Token expired'});
     }
-    req.climber = payload;
-    next();
-
-}
-
-function getClimber(payload){
-    console.log(payload.sub.id);
-    Climber.find({_id: payload.sub.id}, function(err, climber) {
+    User.find({_id: payload.sub.id}, function(err, user) {
         if (err) {
-            return err;
+            req.user = null;
+        } else {
+            req.user = user;
         }
-        return climber;
+        next();
     });
+
 }
 
 module.exports = {

@@ -5,7 +5,6 @@ var express = require('express');
 var ClimbController = require('../controllers/climb');
 var ZoneController = require('../controllers/zone');
 var RouteController = require('../controllers/route');
-var ClimberController = require('../controllers/climber');
 
 var api = express.Router();
 
@@ -26,11 +25,6 @@ api.post('/zone', ZoneController.saveZone);
 api.get('/zones', ZoneController.getAllZones);
 api.get('/zone/:id', ZoneController.getZoneById);
 api.delete('/zone/:id', ZoneController.deleteZoneById);
-
-//CLIMBER ENDPOINTS
-api.post('/signup', ClimberController.signUp);
-api.post('/signin', ClimberController.signIn);
-
 
 
 
